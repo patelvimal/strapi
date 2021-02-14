@@ -25,22 +25,23 @@ describe('strapi e2e', () => {
         `generate @ngx-builders/strapi:strapi ${plugin} --directory subdir`
       );
       expect(() =>
-        checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
+        checkFilesExist(`apps/subdir/${plugin}/src/config/database.js`)
       ).not.toThrow();
       done();
     });
   });
 
-  describe('--tags', () => {
-    it('should add tags to nx.json', async (done) => {
-      const plugin = uniq('strapi');
-      ensureNxProject('@ngx-builders/strapi', 'dist/packages/strapi');
-      await runNxCommandAsync(
-        `generate @ngx-builders/strapi:strapi ${plugin} --tags e2etag,e2ePackage`
-      );
-      const nxJson = readJson('nx.json');
-      expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
-      done();
-    });
-  });
+  // describe('--tags', () => {
+  //   it('should add tags to nx.json', async (done) => {
+  //     const plugin = uniq('strapi');
+  //     ensureNxProject('@ngx-builders/strapi', 'dist/packages/strapi');
+  //     await runNxCommandAsync(
+  //       `generate @ngx-builders/strapi:strapi ${plugin} --tags e2etag,e2ePackage`
+  //     );
+  //     const nxJson = readJson('nx.json');
+  //     expect(nxJson.projects[plugin].tags).toEqual(['e2etag', 'e2ePackage']);
+  //     done();
+  //   });
+  // });
+
 });

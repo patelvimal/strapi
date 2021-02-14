@@ -26,7 +26,7 @@ function normalizeOptions(
     ? `${names(options.directory).fileName}/${name}`
     : name;
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
+  const projectRoot = `${getWorkspaceLayout(host).appsDir}/${projectDirectory}`;
   const parsedTags = options.tags
     ? options.tags.split(',').map((s) => s.trim())
     : [];
@@ -55,11 +55,27 @@ function addFiles(host: Tree, options: NormalizedSchema) {
   );
 }
 
+function addRootFiles(host: Tree, options: NormalizedSchema) {
+  const templateOptions = {
+    ...options,
+    ...names(options.name),
+    offsetFromRoot: offsetFromRoot(options.projectRoot),
+    template: '',
+  };
+  generateFiles(
+    host,
+    path.join(__dirname, 'root-files'),
+    options.projectRoot,
+    templateOptions
+  );
+}
+
+
 export default async function (host: Tree, options: StrapiGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, options);
   addProjectConfiguration(host, normalizedOptions.projectName, {
     root: normalizedOptions.projectRoot,
-    projectType: 'library',
+    projectType: 'application',
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
@@ -69,5 +85,6 @@ export default async function (host: Tree, options: StrapiGeneratorSchema) {
     tags: normalizedOptions.parsedTags,
   });
   addFiles(host, normalizedOptions);
+  //addRootFiles(host, normalizedOptions);
   await formatFiles(host);
 }
