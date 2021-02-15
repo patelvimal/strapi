@@ -53,23 +53,8 @@ function addFiles(host: Tree, options: NormalizedSchema) {
     options.projectRoot,
     templateOptions
   );
+  host.write(`${options.projectRoot}/src/api/.gitkeep`, '');
 }
-
-function addRootFiles(host: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    host,
-    path.join(__dirname, 'root-files'),
-    options.projectRoot,
-    templateOptions
-  );
-}
-
 
 export default async function (host: Tree, options: StrapiGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, options);
@@ -85,6 +70,5 @@ export default async function (host: Tree, options: StrapiGeneratorSchema) {
     tags: normalizedOptions.parsedTags,
   });
   addFiles(host, normalizedOptions);
-  //addRootFiles(host, normalizedOptions);
   await formatFiles(host);
 }

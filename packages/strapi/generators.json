@@ -7,6 +7,12 @@
       "factory": "./src/generators/strapi/generator",
       "schema": "./src/generators/strapi/schema.json",
       "description": "strapi generator"
+    },
+    "init": {
+      "factory": "./src/generators/init/init",
+      "schema": "./src/generators/init/schema.json",
+      "description": "Initialize the @nrwl/strapi plugin",
+      "aliases": ["ng-add"]
     }
   }
 }
