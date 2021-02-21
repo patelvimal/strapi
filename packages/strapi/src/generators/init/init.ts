@@ -1,26 +1,26 @@
-import { chain, noop, Rule,Tree } from '@angular-devkit/schematics';
+import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { addDependenciesToPackageJson, Tree } from '@nrwl/devkit';
+import { addPackageWithInit } from '@nrwl/workspace';
 import { Schema } from './schema';
-import { addDepsToPackageJson, addPackageWithInit } from '@nrwl/workspace';
 
-export default function (schema: Schema): Rule {
+export default function (host: Tree, schema: Schema): Rule {
   return chain([
     schema.unitTestRunner === 'jest'
       ? addPackageWithInit('@nrwl/jest')
       : noop(),
-    addDepsToPackageJson(
-      {
-        "strapi": "3.4.6",
-        "strapi-admin": "3.4.6",
-        "strapi-utils": "3.4.6",
-        "strapi-plugin-content-type-builder": "3.4.6",
-        "strapi-plugin-content-manager": "3.4.6",
-        "strapi-plugin-users-permissions": "3.4.6",
-        "strapi-plugin-email": "3.4.6",
-        "strapi-plugin-upload": "3.4.6",
-        "strapi-connector-bookshelf": "3.4.6",
-        "knex": "<0.20.0",
-        "sqlite3": "5.0.0"
-      },{}
+    addDependenciesToPackageJson(host, {
+      "strapi": "3.4.6",
+      "strapi-admin": "3.4.6",
+      "strapi-utils": "3.4.6",
+      "strapi-plugin-content-type-builder": "3.4.6",
+      "strapi-plugin-content-manager": "3.4.6",
+      "strapi-plugin-users-permissions": "3.4.6",
+      "strapi-plugin-email": "3.4.6",
+      "strapi-plugin-upload": "3.4.6",
+      "strapi-connector-bookshelf": "3.4.6",
+      "knex": "<0.20.0",
+      "sqlite3": "5.0.0"
+    }, {}
     ),
   ]);
 }
