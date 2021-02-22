@@ -6,7 +6,7 @@ import { StrapiGeneratorSchema } from './schema';
 
 describe('strapi generator', () => {
   let appTree: Tree;
-  const options: StrapiGeneratorSchema = { name: 'test' };
+  const options: StrapiGeneratorSchema = { name: 'test',unitTestRunner:'jest' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();

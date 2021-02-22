@@ -3,10 +3,11 @@
   "name": "strapi",
   "version": "0.0.1",
   "generators": {
-    "strapi": {
-      "factory": "./src/generators/strapi/generator",
-      "schema": "./src/generators/strapi/schema.json",
-      "description": "strapi generator"
+    "application": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "strapi generator",
+      "aliases":["app"]
     },
     "init": {
       "factory": "./src/generators/init/init",
